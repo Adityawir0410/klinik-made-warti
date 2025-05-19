@@ -9,51 +9,52 @@ use Illuminate\Support\Facades\Auth;
 class RekamMedisController extends Controller
 {
     /**
-     * Simpan data rekam medis baru.
+     * Simpan data rekam medis baru (AJAX).
      */
     public function store(Request $request, $id_pasien)
-{
-    try {
-        $request->validate([
-            'tanggal_kunjungan' => 'required|date',
-            'keluhan' => 'required|string',
-            'biaya' => 'required|numeric',
-        ]);
+    {
+        try {
+            $request->validate([
+                'tanggal_kunjungan' => 'required|date',
+                'keluhan' => 'required|string',
+                'biaya' => 'required|numeric',
+            ]);
 
-        $rekam = RekamMedis::create([
-            'id_rekam' => substr(uniqid('R'), 0, 10), // jaga panjang maksimal
-            'id_pasien' => $id_pasien,
-            'user_id' => Auth::user()?->id ?? 1,
-            'tanggal_kunjungan' => $request->tanggal_kunjungan,
-            'keluhan' => $request->keluhan,
-            'biaya' => $request->biaya,
-        ]);
+            $rekam = RekamMedis::create([
+                'id_rekam' => substr(uniqid('R'), 0, 10), // pastikan <= 10 char
+                'id_pasien' => $id_pasien,
+                'user_id' => Auth::check() ? Auth::id() : 1, // fallback ke user id 1 jika belum login
+                'tanggal_kunjungan' => $request->tanggal_kunjungan,
+                'keluhan' => $request->keluhan,
+                'biaya' => $request->biaya,
+            ]);
 
-        if ($request->ajax()) {
-            return response()->json(['success' => true, 'rekam' => $rekam]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data rekam medis berhasil ditambahkan.',
+                'rekam' => $rekam
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyimpan data.',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        return back()->with('success', 'Rekam medis berhasil ditambahkan!');
-    } catch (\Exception $e) {
-        return $request->ajax()
-            ? response()->json(['success' => false, 'error' => $e->getMessage()])
-            : back()->with('error', 'Gagal menyimpan data');
     }
-}
-
 
     /**
-     * Perbarui data rekam medis.
+     * Perbarui data rekam medis (AJAX).
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'tanggal_kunjungan' => 'required|date',
-            'keluhan' => 'required|string',
-            'biaya' => 'required|numeric',
-        ]);
-
         try {
+            $request->validate([
+                'tanggal_kunjungan' => 'required|date',
+                'keluhan' => 'required|string',
+                'biaya' => 'required|numeric',
+            ]);
+
             $rekam = RekamMedis::findOrFail($id);
             $rekam->update([
                 'tanggal_kunjungan' => $request->tanggal_kunjungan,
@@ -61,24 +62,36 @@ class RekamMedisController extends Controller
                 'biaya' => $request->biaya,
             ]);
 
-            return back()->with('success', 'Rekam medis berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['Gagal memperbarui data: ' . $e->getMessage()]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data berhasil diperbarui.',
+                'rekam' => $rekam
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memperbarui data.',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 
     /**
-     * Hapus data rekam medis.
+     * Hapus data rekam medis (AJAX).
      */
     public function destroy($id)
-    {
-        try {
-            $rekam = RekamMedis::findOrFail($id);
-            $rekam->delete();
+{
+    try {
+        $rekam = RekamMedis::findOrFail($id);
+        $rekam->delete();
 
-            return back()->with('success', 'Rekam medis berhasil dihapus.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['Gagal menghapus data: ' . $e->getMessage()]);
-        }
+        return response()->json(['success' => true, 'message' => 'Berhasil dihapus.']);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
+
 }

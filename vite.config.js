@@ -8,8 +8,6 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-
-                // ✅ Tambahkan file ini agar ikut dibundle
                 'resources/js/pasien/detail.js',
                 'resources/js/pasien/index.js',
             ],

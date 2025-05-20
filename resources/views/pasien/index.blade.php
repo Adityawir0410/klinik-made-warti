@@ -70,7 +70,7 @@
 
 {{-- ====== MODAL TAMBAH ====== --}}
 <div id="modal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="margin-top: 120px;">
         <span class="close" onclick="closeModal()">&times;</span>
         <h3 class="text-xl font-bold mb-6">Tambah Data Pasien</h3>
         <form id="formTambah" class="space-y-4">
@@ -96,7 +96,7 @@
 
 {{-- ====== MODAL EDIT ====== --}}
 <div id="modalEdit" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="margin-top: 120px;">
         <span class="close" onclick="closeEditModal()">&times;</span>
         <h3 class="text-xl font-bold mb-6">Edit Data Pasien</h3>
         <form id="formEdit" class="space-y-4">
@@ -123,7 +123,7 @@
 
 {{-- ====== MODAL HAPUS ====== --}}
 <div id="modalDelete" class="modal">
-    <div class="modal-content text-center">
+    <div class="modal-content text-center" style="margin-top: 120px;">
         <div class="flex justify-center mb-4">
             <span class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500">
                 <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24">

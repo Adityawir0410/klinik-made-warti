@@ -124,7 +124,7 @@
                                         {{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}</td>
                                     <td class="px-6 py-4">{{ $pasien->nama_pasien }}</td>
                                     <td class="px-6 py-4">
-                                        {{ $pasien->created_at ? \Carbon\Carbon::parse($pasien->created_at)->format('d M Y, h:i A') : '-' }}
+                                        {{ $pasien->created_at ? \Carbon\Carbon::parse($pasien->created_at)->format('d M Y') : '-' }}
                                     </td>
                                     <td class="px-6 py-4">{{ $pasien->alamat_pasien }}</td>
                                     <td class="px-6 py-4 text-center space-x-2">

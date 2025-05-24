@@ -23,6 +23,7 @@ class PasienController extends Controller
 
 
     /**
+     * 
      * Tampilkan detail rekam medis untuk 1 pasien.
      */
     public function show($id)

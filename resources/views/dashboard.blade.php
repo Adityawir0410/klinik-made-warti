@@ -130,16 +130,26 @@
                                     <td class="px-6 py-4 text-center space-x-2">
                                         <a href="{{ route('pasien.detail', $pasien->id_pasien) }}"
                                             class="inline-flex items-center px-3 py-1 text-sm text-blue-600 border border-blue-100 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                                            <!-- Rekam Medis Icon -->
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+                                            </svg>
                                             Rekam Medis
                                         </a>
 
-                                        {{-- Edit bisa diarahkan ke /pasien dengan anchor, atau pakai modal --}}
                                         <a href="{{ url('/pasien') }}#edit-{{ $pasien->id_pasien }}"
                                             class="inline-flex items-center px-3 py-1 text-sm text-yellow-600 border border-yellow-200 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition">
+                                            <!-- Edit Icon -->
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-2.828 1.172H7v-2a4 4 0 011.172-2.828z" />
+                                            </svg>
                                             Edit
                                         </a>
 
-                                        {{-- Form Delete --}}
                                         <form action="{{ url('/pasien/' . $pasien->id_pasien) }}" method="POST"
                                             class="inline-block"
                                             onsubmit="return confirm('Yakin ingin menghapus pasien ini?')">
@@ -147,6 +157,14 @@
                                             @method('DELETE')
                                             <button type="submit"
                                                 class="inline-flex items-center px-3 py-1 text-sm text-red-600 border border-red-200 bg-red-50 rounded-lg hover:bg-red-100 transition">
+                                                <!-- Trash Icon -->
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 7h12M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m2 0v12a2 2 0 01-2 2H8a2 2 0 01-2-2V7h12z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M10 11v6M14 11v6" />
+                                                </svg>
                                                 Hapus
                                             </button>
                                         </form>

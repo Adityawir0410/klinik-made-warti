@@ -105,7 +105,7 @@
     </main>
 
     <div class="w-full text-center text-xs text-gray-400 mt-8 mb-4 select-none">
-        © 2025 Adityawirz - Basis Data
+        © 2025 Rekam Medis Klinik Bidan Made Warthi
     </div>
 
 </body>
